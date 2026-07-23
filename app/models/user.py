@@ -1,9 +1,10 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, Integer, String
+from sqlalchemy import DateTime, Enum, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database.base import Base
+from app.models.role import UserRole
 
 
 class User(Base):
@@ -29,6 +30,12 @@ class User(Base):
 
     password: Mapped[str] = mapped_column(
         String(255),
+        nullable=False
+    )
+
+    role: Mapped[UserRole] = mapped_column(
+        Enum(UserRole),
+        default=UserRole.USER,
         nullable=False
     )
 

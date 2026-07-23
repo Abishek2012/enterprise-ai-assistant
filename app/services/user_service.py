@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
+from app.models.role import UserRole
 from app.models.user import User
 from app.schemas.user import UserCreate
 from app.utils.security import hash_password
@@ -25,7 +26,8 @@ class UserService:
         new_user = User(
             name=user.name,
             email=user.email,
-            password=hash_password(user.password)
+            password=hash_password(user.password),
+            role=UserRole.USER
         )
 
         db.add(new_user)
